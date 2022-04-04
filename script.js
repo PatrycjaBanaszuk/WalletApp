@@ -7,4 +7,14 @@ const nameInput = document.querySelector('#name')
 const amountInput = document.querySelector('#amount')
 const categorySelect = document.querySelector('#category')
 
-const addTransactionalPanel = document.querySelector('.add-transaction-panel')
+const addTransactionalBtn = document.querySelector('.add-transaction')
+const saveBtn = document.querySelector('.save')
+const cancelBtn = document.querySelector('.cancel')
+const deleteBtn = document.querySelector('.delete')
+const deleteAllBtn = document.querySelector('.delete-all')
+
+let root = document.documentElement
+let ID = 0
+let categoryIcon;
+let selectedCategory;
+let moneyArr = [0]
