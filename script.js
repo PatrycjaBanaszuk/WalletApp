@@ -29,7 +29,6 @@ const closePanel = () => {
 
 const checkForm = () => {
 	if (nameInput.value !== '' && amountInput.value !== '' && categorySelect.value !== 'none') {
-		console.log(ok)
 		createNewTransaction()
 	} else {
 		alert('Fill in all the fields!')
@@ -55,37 +54,41 @@ const createNewTransaction = () => {
     <button class="delete" onclick ="deleteTransaction(${ID})"><i class="fas fa-times"></i></button>
     </p>
     `
-	amountInput.value = 0
+	amountInput.value > 0
 		? incomeSection.appendChild(newTransaction) && newTransaction.classList.add('income')
 		: expensesSection.appendChild(newTransaction) && newTransaction.classList.add('expense')
 
 	moneyArr.push(parseFloat(amountInput.value))
+	countMoney(moneyArr)
 	closePanel()
-    ID++
-    clearInputs()
+	ID++
+	clearInputs()
 }
 
+const selectCategory = () => {
+	selectedCategory = categorySelect.options[categorySelect.selectedIndex].text
+}
 
-const selectCategory = () => {categorySelect.options[categorySelect.selectedIndex].text} 
-
-const checkCategory = (transaction) => {
-
-	switch(transaction) {
-		case'[ + ] Income':
-		categoryIcon = '<i class="fas fa-money-bill-wave"></i>'
-		break;
-		case'[ - ] Shopping':
-		categoryIcon = '<i class="fas fa-cart-arrow-down"></i>'
-		break;
-		case'[ - ] Food':
-		categoryIcon = '<i class="fas fa-hamburger"></i>'
-		break;
-		case'[ - ] Cinema':
-		categoryIcon = '<i class="fas fa-film"></i>'
-		break;
-		
+const checkCategory = transaction => {
+	switch (transaction) {
+		case '[ + ] Income':
+			categoryIcon = '<i class="fas fa-money-bill-wave"></i>'
+			break
+		case '[ - ] Shopping':
+			categoryIcon = '<i class="fas fa-cart-arrow-down"></i>'
+			break
+		case '[ - ] Food':
+			categoryIcon = '<i class="fas fa-hamburger"></i>'
+			break
+		case '[ - ] Cinema':
+			categoryIcon = '<i class="fas fa-film"></i>'
+			break
 	}
-    
+}
+
+const countMoney = money => {
+	const newMoney = money.reduce((a,b) => a + b)
+	availableMoney.textContent = `${newMoney}zł`
 }
 
 addTransactionBtn.addEventListener('click', showPanel)
