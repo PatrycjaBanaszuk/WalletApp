@@ -12,6 +12,8 @@ const saveBtn = document.querySelector('.save')
 const cancelBtn = document.querySelector('.cancel')
 const deleteBtn = document.querySelector('.delete')
 const deleteAllBtn = document.querySelector('.delete-all')
+const lightStyleBtn = document.querySelector('.light')
+const darkStyleBtn = document.querySelector('.dark')
 
 let root = document.documentElement
 let ID = 0
@@ -87,7 +89,7 @@ const checkCategory = transaction => {
 }
 
 const countMoney = money => {
-	const newMoney = money.reduce((a,b) => a + b)
+	const newMoney = money.reduce((a, b) => a + b)
 	availableMoney.textContent = `${newMoney}zł`
 }
 
@@ -100,9 +102,32 @@ const deleteTransaction = id => {
 	moneyArr.splice(indexOfTransaction, 1)
 	countMoney(moneyArr)
 
-	transactionToDelete.classList.contains('income') ? incomeSection.removeChild(transactionToDelete) : expensesSection.removeChild(transactionToDelete)
+	transactionToDelete.classList.contains('income')
+		? incomeSection.removeChild(transactionToDelete)
+		: expensesSection.removeChild(transactionToDelete)
+}
+
+const deleteAllTransaction = () => {
+	incomeSection.innerHTML = '<h3>Income: </h3>'
+	expensesSection.innerHTML = '<h3>Expenses: </h3>'
+	availableMoney.textContent = '0zł'
+	moneyArr = [0]
+}
+
+const changeStyleToLight = () => {
+	root.style.setProperty('--first-color', '#f9f9f9')
+	root.style.setProperty('--second-color', '#14161f')
+	root.style.setProperty('--border-color', 'rgba(0, 0, 0, 0.2)')
+}
+const changeStyleToDark = () => {
+	root.style.setProperty('--first-color', '#14161f')
+	root.style.setProperty('--second-color', '#f9f9f9')
+	root.style.setProperty('--border-color', 'rgba(255, 255, 255, 0.4)')
 }
 
 addTransactionBtn.addEventListener('click', showPanel)
-cancelBtn.addEventListener('click', closePanel)  
+cancelBtn.addEventListener('click', closePanel)
 saveBtn.addEventListener('click', checkForm)
+deleteAllBtn.addEventListener('click', deleteAllTransaction)
+lightStyleBtn.addEventListener('click', changeStyleToLight)
+darkStyleBtn.addEventListener('click', changeStyleToDark)
